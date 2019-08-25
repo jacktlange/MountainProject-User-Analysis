@@ -140,7 +140,3 @@ def climbingStyles(privateKey, userEmail):
         if "Trad" in tickTypes and "Sport" in tickTypes:
             typeCounter["mixed"] += 1
     print(typeCounter)
-
-if __name__ == "__main__":
-    privateKey = "112446503-8924701af82f2e439e9312357672ca8d"
-    gradePyramid(privateKey, "jacktlange@gmail.com")
