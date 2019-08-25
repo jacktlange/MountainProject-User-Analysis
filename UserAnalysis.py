@@ -4,15 +4,14 @@ Created on Wed Aug 21 16:14:34 2019
 
 @author: Jack
 """
-
-from MountainProjectPublicAPI import *
+import MountainProjectPublicAPI as mp
 
 def getAllTicks(privateKey, userId):
     maxTicksReturned = 200
     tickIndex = 0
     ticks = []
     while True:
-        ticksQuery = getTicks(privateKey, email = "jacktlange@gmail.com", startPos = tickIndex)["ticks"]
+        ticksQuery = mp.getTicks(privateKey, userId = userId, startPos = tickIndex)["ticks"]
         ticks.extend(ticksQuery)
         tickIndex += maxTicksReturned
         if len(ticksQuery) != 200:
@@ -29,7 +28,7 @@ def ticksToRoutes(privateKey, ticks):
     while i < len(ticks):
         routeIds = separator.join(tickIds[i:i + maxRouteQuery])
         i += maxRouteQuery
-        routes.extend(getRoutes(privateKey, routeIds)["routes"])
+        routes.extend(mp.getRoutes(privateKey, routeIds)["routes"])
 #fewer routes may be returned than the number of ticks because duplicate ticks in the same 100
 #only return one route
     return routes
@@ -87,7 +86,7 @@ def gradePyramid(privateKey, userEmail):
                                "5.13c R", "5.13+ R","5.13c/d R", "5.13d R"],
                     }
                      
-    user = getUser(privateKey, userEmail)
+    user = mp.getUser(privateKey, userEmail)
     ticks = getAllTicks(privateKey, str(user["id"]))
     #filter ticks for redpoint, flash, onsight
     sentTicks = list(filter(sent, ticks))
